@@ -1,0 +1,114 @@
+name: AppWright Test
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install qgjob CLI globally
+        run: npm install -g .
+
+      - name: Start backend service
+        run: |
+          cd backend
+          npm ci
+          nohup npm start > backend.log 2>&1 &
+          echo $! > backend.pid
+          # Wait for backend to be ready
+          timeout 30 bash -c 'until curl -f http://localhost:3000/health; do sleep 2; done'
+
+      - name: Submit test job
+        id: submit-job
+        run: |
+          echo "🚀 Submitting test job..."
+          OUTPUT=$(qgjob submit \
+            --org-id=qualgent \
+            --app-version-id=ci-${{ github.run_id }} \
+            --test=tests/onboarding.spec.js \
+            --priority=high \
+            --target=emulator \
+            --backend-url=http://localhost:3000 2>&1)
+          echo "$OUTPUT"
+          JOB_ID=$(echo "$OUTPUT" | grep "Job ID:" | awk '{print $3}')
+          if [ -z "$JOB_ID" ]; then
+            echo "❌ Failed to extract job ID from output"
+            exit 1
+          fi
+          echo "job_id=$JOB_ID" >> $GITHUB_OUTPUT
+          echo "📋 Job ID: $JOB_ID"
+
+      - name: Poll for test completion
+        id: poll-status
+        run: |
+          echo "🔍 Polling for test completion..."
+          MAX_ATTEMPTS=60  # 10 minutes with 10-second intervals
+          ATTEMPT=0
+          while [ $ATTEMPT -lt $MAX_ATTEMPTS ]; do
+            echo "⏱️  Attempt $((ATTEMPT + 1))/$MAX_ATTEMPTS"
+            STATUS_OUTPUT=$(qgjob status --job-id=${{ steps.submit-job.outputs.job_id }} --backend-url=http://localhost:3000 2>&1)
+            echo "$STATUS_OUTPUT"
+            if echo "$STATUS_OUTPUT" | grep -q "Status:.*completed"; then
+              echo "✅ Test job completed successfully"
+              echo "status=completed" >> $GITHUB_OUTPUT
+              break
+            elif echo "$STATUS_OUTPUT" | grep -q "Status:.*failed"; then
+              echo "❌ Test job failed"
+              echo "status=failed" >> $GITHUB_OUTPUT
+              break
+            elif echo "$STATUS_OUTPUT" | grep -q "Status:.*running"; then
+              echo "🔄 Test job is still running..."
+            else
+              echo "⏳ Test job is queued..."
+            fi
+            ATTEMPT=$((ATTEMPT + 1))
+            sleep 10
+          done
+          if [ $ATTEMPT -eq $MAX_ATTEMPTS ]; then
+            echo "❌ Test job timed out after 10 minutes"
+            echo "status=timeout" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Check test results
+        run: |
+          if [ "${{ steps.poll-status.outputs.status }}" = "failed" ] || [ "${{ steps.poll-status.outputs.status }}" = "timeout" ]; then
+            echo "❌ Tests failed or timed out"
+            exit 1
+          elif [ "${{ steps.poll-status.outputs.status }}" = "completed" ]; then
+            echo "✅ Tests completed successfully"
+          else
+            echo "❌ Unknown test status: ${{ steps.poll-status.outputs.status }}"
+            exit 1
+          fi
+
+      - name: Upload test artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: |
+            backend/logs/
+            backend/backend.log
+            backend/backend.pid
+          retention-days: 7
+
+      - name: Cleanup backend
+        if: always()
+        run: |
+          if [ -f backend/backend.pid ]; then
+            kill $(cat backend/backend.pid) || true
+          fi 

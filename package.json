@@ -1,0 +1,29 @@
+{
+  "name": "qgjob-cli",
+  "version": "1.0.0",
+  "description": "QualGent Job Orchestrator CLI - Queue and manage AppWright tests",
+  "main": "qgjob.js",
+  "bin": {
+    "qgjob": "./qgjob.js"
+  },
+  "scripts": {
+    "start": "node qgjob.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "cli",
+    "testing",
+    "appwright",
+    "job-orchestrator",
+    "qualgent"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "dependencies": {
+    "commander": "^11.1.0",
+    "axios": "^1.6.0"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+} 
