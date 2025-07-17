@@ -147,7 +147,7 @@ qgjob submit --org-id=qualgent --app-version-id=xyz123 --test=tests/onboarding.s
 # With custom priority and target
 qgjob submit --org-id=qualgent --app-version-id=xyz123 --test=tests/onboarding.spec.js --priority=high --target=device
 ```
-**###job submission**
+
 <img src="images/1.jpg" alt="Job Status Check" style="width: 50%; max-width: 50px; height: auto;"></br>
 <img src="images/2.jpg" alt="Job Status Check" style="width: 50%; max-width: 50px; height: auto;">
 
