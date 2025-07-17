@@ -142,7 +142,9 @@ npm start
 ### 2. Submit a Test Job
 
 #### Basic submission  
-`qgjob submit --org-id=qualgent --app-version-id=xyz123 --test=tests/onboarding.spec.js`  
+```bash
+`qgjob submit --org-id=qualgent --app-version-id=xyz123 --test=tests/onboarding.spec.js`
+```
 <img src="images/1.jpg" alt="Basic submission screenshot" style="width: 60%; height: auto;">
 
 #### With custom priority and target  
