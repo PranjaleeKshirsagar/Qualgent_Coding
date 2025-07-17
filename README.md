@@ -147,6 +147,8 @@ qgjob submit --org-id=qualgent --app-version-id=xyz123 --test=tests/onboarding.s
 # With custom priority and target
 qgjob submit --org-id=qualgent --app-version-id=xyz123 --test=tests/onboarding.spec.js --priority=high --target=device
 ```
+![Job Status Check](images/1.jpg)
+
 
 ### 3. Check Job Status
 ```bash
@@ -177,6 +179,7 @@ qgjob submit --org-id=qualgent --app-version-id=xyz123 --test=tests/onboarding.s
 # BrowserStack testing
 qgjob submit --org-id=qualgent --app-version-id=xyz123 --test=tests/onboarding.spec.js --target=browserstack
 ```
+
 
 ### Check Job Status
 ```bash
