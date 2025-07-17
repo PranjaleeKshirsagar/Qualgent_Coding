@@ -147,14 +147,19 @@ qgjob submit --org-id=qualgent --app-version-id=xyz123 --test=tests/onboarding.s
 # With custom priority and target
 qgjob submit --org-id=qualgent --app-version-id=xyz123 --test=tests/onboarding.spec.js --priority=high --target=device
 ```
-<img src="images/1.jpg" alt="Job Status Check" style="width: 50%; max-width: 50px; height: auto;">
+**###job submission**
+<img src="images/1.jpg" alt="Job Status Check" style="width: 50%; max-width: 50px; height: auto;"></br>
+<img src="images/2.jpg" alt="Job Status Check" style="width: 50%; max-width: 50px; height: auto;">
+
+
 
 
 ### 3. Check Job Status
 ```bash
 qgjob status --job-id=<job_id_from_step_2>
 ```
-
+<img src="images/3.jpg" alt="Job Status Check" style="width: 50%; max-width: 50px; height: auto;"></br>
+<img src="images/4.jpg" alt="Job Status Check" style="width: 50%; max-width: 50px; height: auto;">
 ### 4. List All Jobs
 ```bash
 qgjob list --org-id=qualgent
