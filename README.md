@@ -179,19 +179,19 @@ Watch the backend terminal for:
 # Emulator testing
 qgjob submit --org-id=qualgent --app-version-id=xyz123 --test=tests/onboarding.spec.js --target=emulator
 ```
-<img src="images/4.jpg" alt="Job Status Check" style="width: 50%; max-width: 50px; height: auto;">
+<img src="images/5.jpg" alt="Job Status Check" style="width: 50%; max-width: 50px; height: auto;">
 
 # Physical device testing
 ```bash
 qgjob submit --org-id=qualgent --app-version-id=xyz123 --test=tests/onboarding.spec.js --target=device
 ```
-<img src="images/4.jpg" alt="Job Status Check" style="width: 50%; max-width: 50px; height: auto;">
+<img src="images/6.jpg" alt="Job Status Check" style="width: 50%; max-width: 50px; height: auto;">
 
 ```bash
 # BrowserStack testing
 qgjob submit --org-id=qualgent --app-version-id=xyz123 --test=tests/onboarding.spec.js --target=browserstack
 ```
-<img src="images/4.jpg" alt="Job Status Check" style="width: 50%; max-width: 50px; height: auto;">
+<img src="images/7.jpg" alt="Job Status Check" style="width: 50%; max-width: 50px; height: auto;">
 
 ### Check Job Status
 ```bash
