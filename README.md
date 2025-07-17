@@ -140,16 +140,21 @@ npm start
 ```
 
 ### 2. Submit a Test Job
-```bash
-# Basic submission
-qgjob submit --org-id=qualgent --app-version-id=xyz123 --test=tests/onboarding.spec.js
 
-# With custom priority and target
-qgjob submit --org-id=qualgent --app-version-id=xyz123 --test=tests/onboarding.spec.js --priority=high --target=device
-```
+#### Basic submission  
+`qgjob submit --org-id=qualgent --app-version-id=xyz123 --test=tests/onboarding.spec.js`  
+<img src="images/1.jpg" alt="Basic submission screenshot" style="width: 60%; height: auto;">
 
-<img src="images/1.jpg" alt="Job Status Check" style="width: 50%; max-width: 50px; height: auto;"></br>
-<img src="images/2.jpg" alt="Job Status Check" style="width: 50%; max-width: 50px; height: auto;">
+#### With custom priority and target  
+`qgjob submit --org-id=qualgent --app-version-id=xyz123 --test=tests/onboarding.spec.js --priority=high --target=device`  
+<img src="images/2.jpg" alt="Submission with custom priority and target" style="width: 60%; height: auto;">
+
+
+### 3. Check Job Status
+
+`qgjob status --job-id=<job_id_from_step_2>`  
+<img src="images/3.jpg" alt="Job status check screenshot" style="width: 60%; height: auto;">
+
 
 
 
