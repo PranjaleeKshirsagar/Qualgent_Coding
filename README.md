@@ -148,18 +148,10 @@ npm start
 <img src="images/1.jpg" alt="Basic submission screenshot" style="width: 60%; height: auto;">
 
 #### With custom priority and target  
-`qgjob submit --org-id=qualgent --app-version-id=xyz123 --test=tests/onboarding.spec.js --priority=high --target=device`  
+```bash
+`qgjob submit --org-id=qualgent --app-version-id=xyz123 --test=tests/onboarding.spec.js --priority=high --target=device`
+```
 <img src="images/2.jpg" alt="Submission with custom priority and target" style="width: 60%; height: auto;">
-
-
-### 3. Check Job Status
-
-`qgjob status --job-id=<job_id_from_step_2>`  
-<img src="images/3.jpg" alt="Job status check screenshot" style="width: 60%; height: auto;">
-
-
-
-
 
 ### 3. Check Job Status
 ```bash
@@ -167,10 +159,12 @@ qgjob status --job-id=<job_id_from_step_2>
 ```
 <img src="images/3.jpg" alt="Job Status Check" style="width: 50%; max-width: 50px; height: auto;"></br>
 <img src="images/4.jpg" alt="Job Status Check" style="width: 50%; max-width: 50px; height: auto;">
+
 ### 4. List All Jobs
 ```bash
 qgjob list --org-id=qualgent
 ```
+<img src="images/8.jpg" alt="Job Status Check" style="width: 50%; max-width: 50px; height: auto;">
 
 ### 5. Monitor Backend Logs
 Watch the backend terminal for:
@@ -184,14 +178,20 @@ Watch the backend terminal for:
 ```bash
 # Emulator testing
 qgjob submit --org-id=qualgent --app-version-id=xyz123 --test=tests/onboarding.spec.js --target=emulator
+```
+<img src="images/4.jpg" alt="Job Status Check" style="width: 50%; max-width: 50px; height: auto;">
 
 # Physical device testing
+```bash
 qgjob submit --org-id=qualgent --app-version-id=xyz123 --test=tests/onboarding.spec.js --target=device
+```
+<img src="images/4.jpg" alt="Job Status Check" style="width: 50%; max-width: 50px; height: auto;">
 
+```bash
 # BrowserStack testing
 qgjob submit --org-id=qualgent --app-version-id=xyz123 --test=tests/onboarding.spec.js --target=browserstack
 ```
-
+<img src="images/4.jpg" alt="Job Status Check" style="width: 50%; max-width: 50px; height: auto;">
 
 ### Check Job Status
 ```bash
